@@ -4,8 +4,6 @@ SHELL = bash
 PUBLISHTAG = $(shell node scripts/publish-tag.js)
 BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
 
-markdowns = $(shell find docs -name '*.md' | grep -v 'index')
-
 # these docs have the @VERSION@ tag in them, so they have to be rebuilt
 # whenever the package.json is touched, in case the version changed.
 version_mandocs = $(shell grep -rl '@VERSION@' docs/content \
@@ -18,46 +16,45 @@ cli_mandocs = $(shell find docs/content/commands -name '*.md' \
 
 files_mandocs = $(shell find docs/content/configuring-npm -name '*.md' \
                |sed 's|.md|.5|g' \
-               |sed 's|docs/content/configuring-npm/|man/man5/|g' ) \
+               |sed 's|docs/content/configuring-npm/|man/man5/|g' )
 
 misc_mandocs = $(shell find docs/content/using-npm -name '*.md' \
                |sed 's|.md|.7|g' \
-               |sed 's|docs/content/using-npm/|man/man7/|g' ) \
+               |sed 's|docs/content/using-npm/|man/man7/|g' )
 
 mandocs = $(cli_mandocs) $(files_mandocs) $(misc_mandocs)
 
+markdown_docs = $(shell for file in $(find lib/commands -name '*.js'); do echo docs/content/commands/npm-$(basename $file .js).md; done)
+
 all: docs
 
-docs: mandocs htmldocs
+docs: mandocs htmldocs $(markdown_docs)
 
 # don't regenerate the snapshot if we're generating
 # snapshots, since presumably we just did that.
-mandocs: dev-deps $(mandocs)
+mandocs: deps $(mandocs)
 	@ ! [ "$${npm_lifecycle_event}" = "snap" ] && \
 	  ! [ "$${npm_lifecycle_event}" = "postsnap" ] && \
 	  TAP_SNAPSHOT=1 node test/lib/utils/config/definitions.js || true
 
 $(version_mandocs): package.json
 
-htmldocs: dev-deps
-	node bin/npm-cli.js rebuild
-	node bin/npm-cli.js run -w docs build
+htmldocs: deps
+	node bin/npm-cli.js rebuild cmark-gfm
+	node docs/bin/dockhand.js
 
-clean: docs-clean gitclean
+clean: docsclean gitclean
 
-docsclean: docs-clean
-
-docs-clean:
+docsclean:
 	rm -rf man
 
-## build-time dependencies for the documentation
-dev-deps:
-	node bin/npm-cli.js install --no-audit --ignore-scripts
+deps:
+	node bin/npm-cli.js run resetdeps
 
 ## targets for man files, these are encouraged to be only built by running `make docs` or `make mandocs`
-man/man1/%.1: docs/content/commands/%.md scripts/docs-build.js
+man/man1/%.1: docs/content/commands/%.md docs/bin/docs-build.js
 	@[ -d man/man1 ] || mkdir -p man/man1
-	node scripts/docs-build.js $< $@
+	node docs/bin/docs-build.js $< $@
 
 man/man5/npm-json.5: man/man5/package.json.5
 	cp $< $@
@@ -65,36 +62,41 @@ man/man5/npm-json.5: man/man5/package.json.5
 man/man5/npm-global.5: man/man5/folders.5
 	cp $< $@
 
-man/man5/%.5: docs/content/configuring-npm/%.md scripts/docs-build.js
+man/man5/%.5: docs/content/configuring-npm/%.md docs/bin/docs-build.js
 	@[ -d man/man5 ] || mkdir -p man/man5
-	node scripts/docs-build.js $< $@
+	node docs/bin/docs-build.js $< $@
 
-man/man7/%.7: docs/content/using-npm/%.md scripts/docs-build.js
+man/man7/%.7: docs/content/using-npm/%.md docs/bin/docs-build.js
 	@[ -d man/man7 ] || mkdir -p man/man7
-	node scripts/docs-build.js $< $@
+	node docs/bin/docs-build.js $< $@
 
 # Any time the config definitions description changes, automatically
 # update the documentation to account for it
-docs/content/using-npm/config.md: scripts/config-doc.js lib/utils/config/*.js
-	node scripts/config-doc.js
+docs/content/using-npm/config.md: docs/bin/config-doc.js lib/utils/config/*.js
+	node docs/bin/config-doc.js
 
-docs/content/commands/npm-%.md: lib/commands/%.js scripts/config-doc-command.js lib/utils/config/*.js
-	node scripts/config-doc-command.js $@ $<
+mddocs: docs/bin/config-doc-command.js lib/utils/config/*.js lib/utils/cmd-list.js
+	@for file in $(shell find docs/content/commands -name 'npm-*.md'); do \
+		cmdname=$$(basename $$file .md) ;\
+		cmdname=$${cmdname##npm-} ;\
+		echo node docs/bin/config-doc-command.js $${file} lib/commands/$${cmdname}.js ;\
+		node docs/bin/config-doc-command.js $${file} lib/commands/$${cmdname}.js ;\
+	done
+
+docs/content/commands/npm-%.md: lib/commands/%.js
+	node docs/bin/config-doc-command.js $@ $<
 
 freshdocs:
 	touch lib/utils/config/definitions.js
-	touch scripts/config-doc-command.js
-	touch scripts/config-doc.js
+	touch docs/bin/*.js
 	make docs
+	make mddocs
 
-test: dev-deps
-	node bin/npm-cli.js test
-
-smoke-tests: dev-deps
-	node bin/npm-cli.js run smoke-tests -- --no-check-coverage
+test-all: deps
+	node bin/npm-cli.js run test-all
 
 ls-ok:
-	node . ls --production >/dev/null
+	node bin/npm-cli.js ls --omit=dev >/dev/null
 
 gitclean:
 	git clean -fd
@@ -105,14 +107,11 @@ uninstall:
 link: uninstall
 	node bin/npm-cli.js link -f --ignore-scripts
 
-prune:
-	node bin/npm-cli.js run resetdeps
-	node bin/npm-cli.js prune --production --no-save --no-audit
-	@[[ "$(shell git status -s)" != "" ]] && echo "ERR: found unpruned files" && exit 1 || echo "git status is clean"
+prune: deps
+	node bin/npm-cli.js prune --omit=dev --no-save --no-audit --no-fund
+	node scripts/git-dirty.js
 
-
-publish: gitclean ls-ok link test smoke-tests docs prune
-	@git push origin :v$(shell node bin/npm-cli.js --no-timing -v) 2>&1 || true
+publish: gitclean ls-ok link test-all docs prune
 	git push origin $(BRANCH) &&\
 	git push origin --tags &&\
 	node bin/npm-cli.js publish --tag=$(PUBLISHTAG)
@@ -120,4 +119,4 @@ publish: gitclean ls-ok link test smoke-tests docs prune
 release: gitclean ls-ok docs prune
 	@bash scripts/release.sh
 
-.PHONY: all latest install dev link docs clean uninstall test man docs-clean docsclean release ls-ok dev-deps prune freshdocs
+.PHONY: all latest install dev link docs mddocs clean uninstall test-all man docsclean release ls-ok deps prune freshdocs

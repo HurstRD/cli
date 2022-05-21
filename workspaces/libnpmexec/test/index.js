@@ -121,6 +121,82 @@ t.test('local pkg, must not fetch manifest for avail pkg', async t => {
   t.equal(res, 'LOCAL PKG', 'should run local pkg bin script')
 })
 
+t.test('multiple local pkgs', async t => {
+  const foo = {
+    name: '@ruyadorno/create-foo',
+    version: '2.0.0',
+    bin: {
+      'create-foo': './index.js',
+    },
+  }
+  const bar = {
+    name: '@ruyadorno/create-bar',
+    version: '2.0.0',
+    bin: {
+      'create-bar': './index.js',
+    },
+  }
+  const path = t.testdir({
+    cache: {},
+    npxCache: {},
+    node_modules: {
+      '.bin': {},
+      '@ruyadorno': {
+        'create-foo': {
+          'package.json': JSON.stringify(foo),
+          'index.js': `#!/usr/bin/env node
+  require('fs').writeFileSync(process.argv.slice(2)[0], 'foo')`,
+        },
+        'create-bar': {
+          'package.json': JSON.stringify(bar),
+          'index.js': `#!/usr/bin/env node
+  require('fs').writeFileSync(process.argv.slice(2)[0], 'bar')`,
+        },
+      },
+    },
+    'package.json': JSON.stringify({
+      name: 'pkg',
+      dependencies: {
+        '@ruyadorno/create-foo': '^2.0.0',
+        '@ruyadorno/create-bar': '^2.0.0',
+      },
+    }),
+  })
+  const runPath = path
+  const cache = resolve(path, 'cache')
+  const npxCache = resolve(path, 'npxCache')
+
+  const setupBins = async (pkg) => {
+    const executable =
+      resolve(path, `node_modules/${pkg.name}/index.js`)
+    fs.chmodSync(executable, 0o775)
+
+    await binLinks({
+      path: resolve(path, `node_modules/${pkg.name}`),
+      pkg,
+    })
+  }
+
+  await Promise.all([foo, bar]
+    .map(setupBins))
+
+  await libexec({
+    ...baseOpts,
+    localBin: resolve(path, 'node_modules/.bin'),
+    cache,
+    npxCache,
+    packages: ['@ruyadorno/create-foo', '@ruyadorno/create-bar'],
+    call: 'create-foo resfile && create-bar bar',
+    path,
+    runPath,
+  })
+
+  const resFoo = fs.readFileSync(resolve(path, 'resfile')).toString()
+  t.equal(resFoo, 'foo', 'should run local pkg bin script')
+  const resBar = fs.readFileSync(resolve(path, 'bar')).toString()
+  t.equal(resBar, 'bar', 'should run local pkg bin script')
+})
+
 t.test('local file system path', async t => {
   const path = t.testdir({
     cache: {},
@@ -310,13 +386,13 @@ t.test('run multiple from registry', async t => {
 t.test('no args', async t => {
   const path = t.testdir({})
   const runPath = path
-  const libexec = t.mock('../lib/index.js', {
+  const mockexec = t.mock('../lib/index.js', {
     '../lib/run-script': ({ args }) => {
       t.ok(args.length === 0, 'should call run-script with no args')
     },
   })
 
-  await libexec({
+  await mockexec({
     ...baseOpts,
     path,
     runPath,
@@ -334,7 +410,7 @@ t.test('prompt, accepts', async t => {
   const cache = resolve(testdir, 'cache')
   const npxCache = resolve(testdir, 'npxCache')
   t.test('with clearProgress function', async t => {
-    const libexec = t.mock('../lib/index.js', {
+    const mockexec = t.mock('../lib/index.js', {
       '@npmcli/ci-detect': () => false,
       npmlog: {
         clearProgress () {
@@ -349,7 +425,7 @@ t.test('prompt, accepts', async t => {
       '../lib/no-tty.js': () => false,
     })
 
-    await libexec({
+    await mockexec({
       ...baseOpts,
       args: ['@ruyadorno/create-index'],
       cache,
@@ -365,7 +441,7 @@ t.test('prompt, accepts', async t => {
   })
 
   t.test('without clearProgress function', async t => {
-    const libexec = t.mock('../lib/index.js', {
+    const mockexec = t.mock('../lib/index.js', {
       '@npmcli/ci-detect': () => false,
       read (opts, cb) {
         cb(null, 'y')
@@ -373,7 +449,7 @@ t.test('prompt, accepts', async t => {
       '../lib/no-tty.js': () => false,
     })
 
-    await libexec({
+    await mockexec({
       ...baseOpts,
       args: ['@ruyadorno/create-index'],
       cache,
@@ -400,7 +476,7 @@ t.test('prompt, refuses', async t => {
   const cache = resolve(testdir, 'cache')
   const npxCache = resolve(testdir, 'npxCache')
   t.test('with clearProgress function', async t => {
-    const libexec = t.mock('../lib/index.js', {
+    const mockexec = t.mock('../lib/index.js', {
       '@npmcli/ci-detect': () => false,
       npmlog: {
         clearProgress () {
@@ -415,7 +491,7 @@ t.test('prompt, refuses', async t => {
     })
 
     await t.rejects(
-      libexec({
+      mockexec({
         ...baseOpts,
         args: ['@ruyadorno/create-index'],
         cache,
@@ -439,7 +515,7 @@ t.test('prompt, refuses', async t => {
   })
 
   t.test('without clearProgress function', async t => {
-    const libexec = t.mock('../lib/index.js', {
+    const mockexec = t.mock('../lib/index.js', {
       '@npmcli/ci-detect': () => false,
       read (opts, cb) {
         cb(null, 'n')
@@ -448,7 +524,7 @@ t.test('prompt, refuses', async t => {
     })
 
     await t.rejects(
-      libexec({
+      mockexec({
         ...baseOpts,
         args: ['@ruyadorno/create-index'],
         cache,
@@ -517,11 +593,11 @@ t.test('no prompt if no tty', async t => {
   const runPath = path
   const cache = resolve(testdir, 'cache')
   const npxCache = resolve(testdir, 'npxCache')
-  const libexec = t.mock('../lib/index.js', {
+  const mockexec = t.mock('../lib/index.js', {
     '../lib/no-tty.js': () => true,
   })
 
-  await libexec({
+  await mockexec({
     ...baseOpts,
     args: ['@ruyadorno/create-index'],
     cache,
@@ -546,11 +622,11 @@ t.test('no prompt if CI', async t => {
   const runPath = path
   const cache = resolve(testdir, 'cache')
   const npxCache = resolve(testdir, 'npxCache')
-  const libexec = t.mock('../lib/index.js', {
+  const mockexec = t.mock('../lib/index.js', {
     '@npmcli/ci-detect': () => true,
   })
 
-  await libexec({
+  await mockexec({
     ...baseOpts,
     args: ['@ruyadorno/create-index'],
     cache,
@@ -575,7 +651,7 @@ t.test('no prompt if CI, multiple packages', async t => {
   const runPath = path
   const cache = resolve(testdir, 'cache')
   const npxCache = resolve(testdir, 'npxCache')
-  const libexec = t.mock('../lib/index.js', {
+  const mockexec = t.mock('../lib/index.js', {
     '@npmcli/ci-detect': () => true,
     'proc-log': {
       warn (title, msg) {
@@ -587,7 +663,7 @@ t.test('no prompt if CI, multiple packages', async t => {
     },
   })
 
-  await libexec({
+  await mockexec({
     ...baseOpts,
     call: 'create-index',
     packages: ['@ruyadorno/create-index', '@ruyadorno/create-test'],
@@ -629,41 +705,41 @@ t.test('sane defaults', async t => {
 t.test('scriptShell default value', t => {
   t.test('/bin/sh platforms', t => {
     t.plan(1)
-    const libexec = t.mock('../lib/index.js', {
+    const mockexec = t.mock('../lib/index.js', {
       '../lib/is-windows.js': false,
       '../lib/run-script.js': (opt) => {
         t.equal(opt.scriptShell, 'sh', 'should use expected shell value')
       },
     })
-    libexec({ args: [], runPath: t.testDirName })
+    mockexec({ args: [], runPath: t.testDirName })
   })
 
   t.test('win32 defined ComSpec env var', t => {
     t.plan(1)
     const comspec = process.env.ComSpec
     process.env.ComSpec = 'CMD'
-    const libexec = t.mock('../lib/index.js', {
+    const mockexec = t.mock('../lib/index.js', {
       '../lib/is-windows.js': true,
       '../lib/run-script.js': ({ scriptShell }) => {
         t.equal(scriptShell, 'CMD', 'should use expected ComSpec value')
         process.env.ComSpec = comspec
       },
     })
-    libexec({ args: [], runPath: t.testDirName })
+    mockexec({ args: [], runPath: t.testDirName })
   })
 
   t.test('win32 cmd', t => {
     t.plan(1)
     const comspec = process.env.ComSpec
     process.env.ComSpec = ''
-    const libexec = t.mock('../lib/index.js', {
+    const mockexec = t.mock('../lib/index.js', {
       '../lib/is-windows.js': true,
       '../lib/run-script.js': ({ scriptShell }) => {
         t.equal(scriptShell, 'cmd', 'should use expected cmd default value')
         process.env.ComSpec = comspec
       },
     })
-    libexec({ args: [], runPath: t.testDirName })
+    mockexec({ args: [], runPath: t.testDirName })
   })
 
   t.end()

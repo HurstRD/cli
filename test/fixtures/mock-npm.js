@@ -61,6 +61,7 @@ const LoadMockNpm = async (t, {
   init = true,
   load = init,
   prefixDir = {},
+  homeDir = {},
   cacheDir = {},
   globalPrefixDir = {},
   config = {},
@@ -70,6 +71,12 @@ const LoadMockNpm = async (t, {
   // Mock some globals with their original values so they get torn down
   // back to the original at the end of the test since they are manipulated
   // by npm itself
+  const npmConfigEnv = {}
+  for (const key in process.env) {
+    if (key.startsWith('npm_config_')) {
+      npmConfigEnv[key] = undefined
+    }
+  }
   mockGlobals(t, {
     process: {
       title: process.title,
@@ -77,11 +84,16 @@ const LoadMockNpm = async (t, {
       env: {
         npm_command: process.env.npm_command,
         COLOR: process.env.COLOR,
+        ...npmConfigEnv,
       },
     },
   })
 
   const { Npm, ...rest } = RealMockNpm(t, mocks)
+
+  // We want to fail fast when writing tests. Default this to 0 unless it was
+  // explicitly set in a test.
+  config = { 'fetch-retries': 0, ...config }
 
   if (!init && load) {
     throw new Error('cant `load` without `init`')
@@ -90,16 +102,23 @@ const LoadMockNpm = async (t, {
   // Set log level as early as possible since
   setLoglevel(t, config.loglevel)
 
-  const dir = t.testdir({ prefix: prefixDir, cache: cacheDir, global: globalPrefixDir })
+  const dir = t.testdir({
+    home: homeDir,
+    prefix: prefixDir,
+    cache: cacheDir,
+    global: globalPrefixDir,
+  })
   const prefix = path.join(dir, 'prefix')
   const cache = path.join(dir, 'cache')
   const globalPrefix = path.join(dir, 'global')
+  const home = path.join(dir, 'home')
 
   // Set cache to testdir via env var so it is available when load is run
   // XXX: remove this for a solution where cache argv is passed in
   mockGlobals(t, {
+    'process.env.HOME': home,
     'process.env.npm_config_cache': cache,
-    ...(globals ? result(globals, { prefix, cache }) : {}),
+    ...(globals ? result(globals, { prefix, cache, home }) : {}),
     // Some configs don't work because they can't be set via npm.config.set until
     // config is loaded. But some config items are needed before that. So this is
     // an explicit set of configs that must be loaded as env vars.
@@ -113,7 +132,9 @@ const LoadMockNpm = async (t, {
   })
 
   const npm = init ? new Npm() : null
-  t.teardown(() => npm && npm.unload())
+  t.teardown(() => {
+    npm && npm.unload()
+  })
 
   if (load) {
     await npm.load()
@@ -136,6 +157,7 @@ const LoadMockNpm = async (t, {
     ...rest,
     Npm,
     npm,
+    home,
     prefix,
     globalPrefix,
     testdir: dir,

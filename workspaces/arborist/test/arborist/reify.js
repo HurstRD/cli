@@ -1770,6 +1770,8 @@ t.test('running lifecycle scripts of unchanged link nodes on reify', async t => 
 
   t.ok(fs.lstatSync(resolve(path, 'a/a-prepare')).isFile(),
     'should run prepare lifecycle scripts for links directly linked to the tree')
+  t.ok(fs.lstatSync(resolve(path, 'a/a-post-install')).isFile(),
+    'should run postinstall lifecycle scripts for links directly linked to the tree')
 })
 
 t.test('save-prod, with optional', async t => {
@@ -2622,5 +2624,246 @@ t.test('save package.json on update', t => {
       'should save no top level dep update to root package.json'
     )
   })
+
+  t.test('should not throw when trying to update a link dep', async t => {
+    const path = t.testdir({
+      one: {
+        'package.json': JSON.stringify({
+          name: 'one',
+          version: '1.0.0',
+          dependencies: {
+            two: 'file:../two',
+          },
+        }),
+      },
+      two: {
+        'package.json': JSON.stringify({
+          name: 'two',
+          version: '1.0.0',
+        }),
+      },
+    })
+
+    await t.resolves(reify(resolve(path, 'one'), { update: true, save: true, workspaces: [] }))
+
+    t.equal(
+      require(resolve(path, 'one', 'package.json')).dependencies.two,
+      'file:../two',
+      'should have made no changes'
+    )
+  })
+  t.end()
+})
+
+t.test('installLinks', (t) => {
+  t.test('when true, packs and extracts instead of symlinks', async (t) => {
+    const path = t.testdir({
+      a: {
+        'package.json': JSON.stringify({
+          name: 'a',
+          version: '1.0.0',
+          main: 'index.js',
+          dependencies: {
+            b: 'file:../b',
+          },
+        }),
+        'index.js': '',
+      },
+      b: {
+        'package.json': JSON.stringify({
+          name: 'b',
+          version: '1.0.0',
+          main: 'index.js',
+        }),
+        'index.js': '',
+      },
+    })
+
+    await reify(resolve(path, 'a'), { installLinks: true })
+
+    const installedB = fs.lstatSync(resolve(path, 'a/node_modules/b'))
+    t.ok(installedB.isDirectory(), 'a/node_modules/b is a directory')
+  })
+
+  t.test('when false, symlinks', async (t) => {
+    const path = t.testdir({
+      a: {
+        'package.json': JSON.stringify({
+          name: 'a',
+          version: '1.0.0',
+          main: 'index.js',
+          dependencies: {
+            b: 'file:../b',
+          },
+        }),
+        'index.js': '',
+      },
+      b: {
+        'package.json': JSON.stringify({
+          name: 'b',
+          version: '1.0.0',
+          main: 'index.js',
+        }),
+        'index.js': '',
+      },
+    })
+
+    await reify(resolve(path, 'a'), { installLinks: false })
+
+    const installedB = fs.lstatSync(resolve(path, 'a/node_modules/b'))
+    t.ok(installedB.isSymbolicLink(), 'a/node_modules/b is a symlink')
+  })
+
+  t.test('when symlinks exist, installLinks set to true replaces them with dirs', async (t) => {
+    const path = t.testdir({
+      a: {
+        'package.json': JSON.stringify({
+          name: 'a',
+          version: '1.0.0',
+          main: 'index.js',
+          dependencies: {
+            b: 'file:../b',
+          },
+        }),
+        'index.js': '',
+      },
+      b: {
+        'package.json': JSON.stringify({
+          name: 'b',
+          version: '1.0.0',
+          main: 'index.js',
+        }),
+        'index.js': '',
+      },
+    })
+
+    await reify(resolve(path, 'a'), { installLinks: false, save: true })
+
+    const firstB = fs.lstatSync(resolve(path, 'a/node_modules/b'))
+    t.ok(firstB.isSymbolicLink(), 'a/node_modules/b is a symlink')
+
+    await reify(resolve(path, 'a'), { installLinks: true, save: true })
+
+    const secondB = fs.lstatSync(resolve(path, 'a/node_modules/b'))
+    t.ok(secondB.isDirectory(), 'a/node_modules/b is now a directory')
+  })
+
+  t.test('when directories exist, installLinks set to false replaces them with symlinks', async (t) => {
+    const path = t.testdir({
+      a: {
+        'package.json': JSON.stringify({
+          name: 'a',
+          version: '1.0.0',
+          main: 'index.js',
+          dependencies: {
+            b: 'file:../b',
+          },
+        }),
+        'index.js': '',
+      },
+      b: {
+        'package.json': JSON.stringify({
+          name: 'b',
+          version: '1.0.0',
+          main: 'index.js',
+        }),
+        'index.js': '',
+      },
+    })
+
+    await reify(resolve(path, 'a'), { installLinks: true })
+
+    const firstB = fs.lstatSync(resolve(path, 'a/node_modules/b'))
+    t.ok(firstB.isDirectory(), 'a/node_modules/b is a directory')
+
+    await reify(resolve(path, 'a'), { installLinks: false })
+
+    const secondB = fs.lstatSync(resolve(path, 'a/node_modules/b'))
+    t.ok(secondB.isSymbolicLink(), 'a/node_modules/b is now a symlink')
+  })
+
+  t.test('when installLinks is true, dependencies of links are installed', async (t) => {
+    const path = t.testdir({
+      a: {
+        'package.json': JSON.stringify({
+          name: 'a',
+          version: '1.0.0',
+          main: 'index.js',
+          dependencies: {
+            b: 'file:../b',
+          },
+        }),
+        'index.js': '',
+      },
+      b: {
+        'package.json': JSON.stringify({
+          name: 'b',
+          version: '1.0.0',
+          main: 'index.js',
+          dependencies: {
+            abbrev: '^1.0.0',
+          },
+        }),
+        'index.js': '',
+      },
+    })
+
+    await reify(resolve(path, 'a'), { installLinks: true })
+
+    const installedB = fs.lstatSync(resolve(path, 'a/node_modules/b'))
+    t.ok(installedB.isDirectory(), 'a/node_modules/b is a directory')
+
+    const abbrev = fs.lstatSync(resolve(path, 'a/node_modules/abbrev'))
+    t.ok(abbrev.isDirectory(), 'abbrev got installed')
+  })
+
+  t.test('workspaces are always symlinks, even with installLinks set to true', async (t) => {
+    const path = t.testdir({
+      a: {
+        'package.json': JSON.stringify({
+          name: 'a',
+          version: '1.0.0',
+          main: 'index.js',
+          dependencies: {
+            b: 'file:../b',
+            c: '^1.0.0',
+          },
+          workspaces: ['./c'],
+        }),
+        'index.js': '',
+        c: {
+          'package.json': JSON.stringify({
+            name: 'c',
+            version: '1.0.0',
+            main: 'index.js',
+          }),
+          'index.js': '',
+        },
+      },
+      b: {
+        'package.json': JSON.stringify({
+          name: 'b',
+          version: '1.0.0',
+          main: 'index.js',
+          dependencies: {
+            abbrev: '^1.0.0',
+          },
+        }),
+        'index.js': '',
+      },
+    })
+
+    await reify(resolve(path, 'a'), { installLinks: true })
+
+    const installedB = fs.lstatSync(resolve(path, 'a/node_modules/b'))
+    t.ok(installedB.isDirectory(), 'a/node_modules/b is a directory')
+
+    const installedC = fs.lstatSync(resolve(path, 'a/node_modules/c'))
+    t.ok(installedC.isSymbolicLink(), 'a/node_modules/c is a symlink')
+
+    const abbrev = fs.lstatSync(resolve(path, 'a/node_modules/abbrev'))
+    t.ok(abbrev.isDirectory(), 'abbrev got installed')
+  })
+
   t.end()
 })

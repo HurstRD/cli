@@ -1,5 +1,220 @@
 # Changelog
 
+## v8.10.0 (2022-05-11)
+
+### Features
+
+  * [`911f55d`](https://github.com/npm/cli/commit/911f55dc6ac3672f48740d0675f67c934c01aaf4) [#4864](https://github.com/npm/cli/pull/4864) feat: add --iwr alias for --include-workspace-root ([@fritzy](https://github.com/fritzy))
+  * [`bfb8bcc`](https://github.com/npm/cli/commit/bfb8bccbe83753e527b43c8a3889696087dbe8f1) [#4874](https://github.com/npm/cli/pull/4874) feat: add flag --omit-lockfile-registry-resolved ([@fritzy](https://github.com/fritzy)) ([Caleb ツ Everett](mailto:calebev@amazon.com))
+
+### Bug Fixes
+
+  * [`48d2db6`](https://github.com/npm/cli/commit/48d2db6037487fd782f67bbcd2cf12e009ece17b) [#4862](https://github.com/npm/cli/pull/4862) fix: remove test coverage map ([@wraithgar](https://github.com/wraithgar))
+  * [`38cf29a`](https://github.com/npm/cli/commit/38cf29a0054544c575b6bce953f1d433dbb6a3b5) [#4868](https://github.com/npm/cli/pull/4868) fix: cleanup star/unstar ([@wraithgar](https://github.com/wraithgar))
+  * [`5baa4a7`](https://github.com/npm/cli/commit/5baa4a7c64319485604982f9060702a7cee8a85c) [#4857](https://github.com/npm/cli/pull/4857) fix: consolidate bugs, docs, repo command logic ([@wraithgar](https://github.com/wraithgar))
+  * [`5a50762`](https://github.com/npm/cli/commit/5a50762faa37ae5964ae6f12595b20b367056c0a) [#4875](https://github.com/npm/cli/pull/4875) fix(arborist): link deps lifecycle scripts ([@ruyadorno](https://github.com/ruyadorno))
+
+### Dependencies
+
+  * [`d58bf40`](https://github.com/npm/cli/commit/d58bf40abf7c3ff8ae400f50e5e5a19c33138707) [#4856](https://github.com/npm/cli/pull/4856) deps: `npm-packlist@5.0.3`
+  * [`86f443e`](https://github.com/npm/cli/commit/86f443e97aa58c1a06b8eb6f523656274234bb71) [#4872](https://github.com/npm/cli/pull/4872) deps: `make-fetch-happen@10.1.3`
+  * [`f9984e6`](https://github.com/npm/cli/commit/f9984e64e714937fa69f14850a1d3ed7ccfc934c) [#4880](https://github.com/npm/cli/pull/4880) deps: `@npmcli/arborist@5.2.0`
+  * [`ba59915`](https://github.com/npm/cli/commit/ba599154dc8ea9f424410fb7dc382d5829215920) [#4881](https://github.com/npm/cli/pull/4881) deps: `socks-proxy-agent@6.2.0`
+  * [`c0806ba`](https://github.com/npm/cli/commit/c0806ba2b325456199069b245446c8a86e7feae2) [#4881](https://github.com/npm/cli/pull/4881) deps: `http-proxy-agent@5.0.1`
+  * [`cc7be6b`](https://github.com/npm/cli/commit/cc7be6b8b63a7314066e8763589a57e5a6e77d30) [#4881](https://github.com/npm/cli/pull/4881) deps: `is-core-module@2.9.0`
+  * [`0432c7d`](https://github.com/npm/cli/commit/0432c7d8a22ddbfdf238c2b22dd3c7bd263e2d6c) [#4881](https://github.com/npm/cli/pull/4881) deps: `lru-cache@7.9.0`
+  * [`5778820`](https://github.com/npm/cli/commit/57788204646a6aa5a384630a5640bf00efa25ce0) [#4881](https://github.com/npm/cli/pull/4881) deps: `just-diff@5.0.2`
+  * [`893dd00`](https://github.com/npm/cli/commit/893dd0066e2315f0d9937fe05879957e1446b755) [#4881](https://github.com/npm/cli/pull/4881) deps: `ip@1.1.8`
+  * [`6ab85bd`](https://github.com/npm/cli/commit/6ab85bd5df88ade023f7e4895d07a39228d23a33) [#4881](https://github.com/npm/cli/pull/4881) deps: `builtins@5.0.1`
+
+## v8.9.0 (2022-05-04)
+
+### Features
+
+  * [`62af3a1`](https://github.com/npm/cli/commit/62af3a1dc003cf23c563d18437be81f61e65cb49) [#4835](https://github.com/npm/cli/pull/4835) feat: make npm owner workspace aware ([@wraithgar](https://github.com/wraithgar))
+
+### Bug Fixes
+
+  * [`d654e7e`](https://github.com/npm/cli/commit/d654e7e9146f123a9806cfd9a17150eb1f6075a4) [#4781](https://github.com/npm/cli/pull/4781) fix: start consolidating color output ([@wraithgar](https://github.com/wraithgar))
+  * [`b9a966c`](https://github.com/npm/cli/commit/b9a966cf33cfa9b1e5f16c16219f63633bbe19d6) [#4843](https://github.com/npm/cli/pull/4843) fix(exec): ignore packageLockOnly flag ([@nlf](https://github.com/nlf))
+
+### Documentation
+
+  * [`8fd7eec`](https://github.com/npm/cli/commit/8fd7eec8ef76224dd8a9874a1044a0cc8f5e1c49) [#4845](https://github.com/npm/cli/pull/4845) docs: remove incorrect v6 auto prune info ([@wraithgar](https://github.com/wraithgar))
+  * [`5f59f80`](https://github.com/npm/cli/commit/5f59f803d1c6cdc690d4d7016990ca0e20c6706f) [#4847](https://github.com/npm/cli/pull/4847) docs: show complex object interactions in npm pkg ([@wraithgar](https://github.com/wraithgar))
+
+### Dependencies
+
+  * [`62faf8a`](https://github.com/npm/cli/commit/62faf8adba19d6ef26238887a453d013fe58ae75) [#4837](https://github.com/npm/cli/pull/4837) deps: `pacote@13.2.0`
+  * [`4ff7d3d`](https://github.com/npm/cli/commit/4ff7d3d993533d6407fa69c5e6dd00f95090a280) [#4816](https://github.com/npm/cli/pull/4816) deps: `cacache@16.0.7`
+  * [`e2e9c81`](https://github.com/npm/cli/commit/e2e9c8152e2d2adcb7e2dfc90f61353d50e433ba) [#4852](https://github.com/npm/cli/pull/4852) deps: `pacote@13.3.0`
+
+## v8.8.0 (2022-04-27)
+
+### Features
+
+  * [`bedd8a1`](https://github.com/npm/cli/commit/bedd8a1f5844b5b379af5a756baa70821d78c610) [#4745](https://github.com/npm/cli/pull/4745) feat: add install-links config definition ([@nlf](https://github.com/nlf))
+
+### Bug Fixes
+
+  * [`6253d19`](https://github.com/npm/cli/commit/6253d1968d8390ea6b16604ff3abb5e6509349c9) [#4643](https://github.com/npm/cli/pull/4643) fix(exec): workspaces support ([@ruyadorno](https://github.com/ruyadorno))
+  * [`e9163b4`](https://github.com/npm/cli/commit/e9163b48d8e46a80d2a4cc98c492b94dfa152cb8) [#4657](https://github.com/npm/cli/pull/4657) fix(libnpmpublish): unpublish from custom registry ([@ruyadorno](https://github.com/ruyadorno))
+  * [`a677f49`](https://github.com/npm/cli/commit/a677f49e29ee9d472c8c9aa1c9eb3d5d8b4ee4a9) [#4778](https://github.com/npm/cli/pull/4778) fix: Use node in and fallback to PATH if not found ([@elibus](https://github.com/elibus))
+  * [`b10462e`](https://github.com/npm/cli/commit/b10462ed156ada4d4ad90e6cf613e292a9361a87) [#4752](https://github.com/npm/cli/pull/4752) fix: completion for `deprecate` cmd ([@wraithgar](https://github.com/wraithgar))
+  * [`ced0acf`](https://github.com/npm/cli/commit/ced0acfe5998a5be9313815f76f5c1439a09db78) [#4775](https://github.com/npm/cli/pull/4775) fix: consolidate registryConfig application logic ([@wraithgar](https://github.com/wraithgar))
+  * [`b06e89f`](https://github.com/npm/cli/commit/b06e89f434fe8f104e71d4d8b5c98f1e866efdfa) [#4679](https://github.com/npm/cli/pull/4679) fix(install): do not install invalid package name ([@ruyadorno](https://github.com/ruyadorno))
+  * [`9ea2603`](https://github.com/npm/cli/commit/9ea26038ad4d3dc971d442cba2bb02a35755c07a) [#4786](https://github.com/npm/cli/pull/4786) fix: normalize win32 paths before globbing ([@lukekarrys](https://github.com/lukekarrys))
+  * [`8da28b4`](https://github.com/npm/cli/commit/8da28b403f32d2e99c842893bdc40429b8ffa9a7) [#4757](https://github.com/npm/cli/pull/4757) fix: remove `lib/utils/read-package-name.js` ([@wraithgar](https://github.com/wraithgar))
+
+### Documentation
+
+  * [`a6ea884`](https://github.com/npm/cli/commit/a6ea8843a9761d4392b3344400eb56e07691a91d) [#4745](https://github.com/npm/cli/pull/4745) docs: add some more docs for --install-links ([@nlf](https://github.com/nlf))
+  * [`6cd6831`](https://github.com/npm/cli/commit/6cd6831eaa9e1681e07f6646e6f13cce344e1250) [#4782](https://github.com/npm/cli/pull/4782) docs: explain that _auth only goes to npm registry ([@wraithgar](https://github.com/wraithgar))
+  * [`fa3d829`](https://github.com/npm/cli/commit/fa3d82989df7071cfe500c5f9cc09c597bcc17ee) [#4772](https://github.com/npm/cli/pull/4772) docs: include org instructions in scoped publish ([@bnb](https://github.com/bnb))
+
+### Dependencies
+
+  * [`36899d1`](https://github.com/npm/cli/commit/36899d193b8e8ee6019b04aa5e6a3a9a641a3172) [#4807](https://github.com/npm/cli/pull/4807) deps: `@npmcli/arborist@5.1.1`
+    * [`0ebadf5`](https://github.com/npm/cli/commit/0ebadf5b603368557e9e837a46ea5c59c2677a81) [#4745](https://github.com/npm/cli/pull/4745) add support for installLinks ([@nlf](https://github.com/nlf))
+    * [`3d96494`](https://github.com/npm/cli/commit/3d964940f410052918e37a9b05818fe9dc4cd86a) [#4745](https://github.com/npm/cli/pull/4745) when replacing a Link with a Node, make sure to remove the Link target from the root ([@nlf](https://github.com/nlf))
+  * [`3f2b24a`](https://github.com/npm/cli/commit/3f2b24afe205547dbbadf5a6313e95f6b565fb49) [#4786](https://github.com/npm/cli/pull/4786) deps: `@npmcli/map-workspaces@2.0.3`
+  * [`b1b6948`](https://github.com/npm/cli/commit/b1b69487637ce99192dc930257eebae9eed4fe7f) [#4808](https://github.com/npm/cli/pull/4808) deps: `libnpmexec@4.0.5`
+    * [`4a46a27`](https://github.com/npm/cli/commit/4a46a27f2b968e2f8c1f4821508f93013738c482) [#4777](https://github.com/npm/cli/pull/4777) fix read mixed local/registry pkg ([@ruyadorno](https://github.com/ruyadorno))
+  * [`9f57404`](https://github.com/npm/cli/commit/9f57404dc148835d7393b5fe617c8c5e2c958061) [#4743](https://github.com/npm/cli/pull/4743) deps: `npm-registry-fetch@13.1.1`
+  * [`532883f`](https://github.com/npm/cli/commit/532883ffc35fc1cc9aec09f03bf5ee0f256b94a4) [#4786](https://github.com/npm/cli/pull/4786) deps: `cacache@16.0.6`
+  * [`4d1398e`](https://github.com/npm/cli/commit/4d1398e347ed56464d7afd8ef0b3a3bc82b2f19f) [#4786](https://github.com/npm/cli/pull/4786) deps: `npm-profile@6.0.3`
+  * [`5e31322`](https://github.com/npm/cli/commit/5e313223100db1207818d756b081eaba3468b273) [#4786](https://github.com/npm/cli/pull/4786) deps: `npmlog@6.0.2`
+  * [`4eb2ccb`](https://github.com/npm/cli/commit/4eb2ccbacbd2ca55f2a41a104ee20578542fc52f) [#4786](https://github.com/npm/cli/pull/4786) deps: `read-package-json@5.0.1`
+  * [`aeb54e4`](https://github.com/npm/cli/commit/aeb54e41b613f4a98d1f02d255b3a564c43270d8) [#4786](https://github.com/npm/cli/pull/4786) deps: `glob@8.0.1`
+  * [`252b2b1`](https://github.com/npm/cli/commit/252b2b1e8caaf1c26e5ab6836a83ec430d2a699a) [#4786](https://github.com/npm/cli/pull/4786) deps: `npm-packlist@5.0.2`
+  * [`c51e553`](https://github.com/npm/cli/commit/c51e553a32315e4f1b703ca9030eb7ade91d1a85) [#4786](https://github.com/npm/cli/pull/4786) deps: `semver@7.3.7`
+  * [`13299ee`](https://github.com/npm/cli/commit/13299eed80db9a05f0b0a063b8936c0148ec3037) [#4786](https://github.com/npm/cli/pull/4786) deps: `lru-cache@7.8.1`
+  * [`0f2da5d`](https://github.com/npm/cli/commit/0f2da5dca54862707a00d2254bf4c0b4c2e0be60) [#4786](https://github.com/npm/cli/pull/4786) deps: `cli-table3@0.6.2`
+  * [`0ee57f1`](https://github.com/npm/cli/commit/0ee57f1492893da84686f4340feeb0469fb751f8) [#4805](https://github.com/npm/cli/pull/4805) deps: `libnpmpublish@6.0.4`
+  * [`8a633a4`](https://github.com/npm/cli/commit/8a633a436cf37dad293af3aaf8ea9a0b5badf314) [#4806](https://github.com/npm/cli/pull/4806) deps: `libnpmversion@3.0.4`
+
+## v8.7.0 (2022-04-13)
+
+### Features
+
+  * [`6611e91`](https://github.com/npm/cli/commit/6611e9147f1726ab4537a7fe3b9e3beb6728f700) [#4723](https://github.com/npm/cli/pull/4723) feat(config): add more npm/node information to config ls ([@lukekarrys](https://github.com/lukekarrys))
+  * [`c057b90`](https://github.com/npm/cli/commit/c057b90d0954ff5b6f2973748ae5d41885b99213) [#4740](https://github.com/npm/cli/pull/4740) feat(config): warn on deprecated configs ([@lukekarrys](https://github.com/lukekarrys))
+
+### Bug Fixes
+
+  * [`2829cb2`](https://github.com/npm/cli/commit/2829cb28a432b5ff7beeeb3bf3e7e2e174c1121d) [#4658](https://github.com/npm/cli/pull/4658) fix: update readme badges ([@lukekarrys](https://github.com/lukekarrys))
+  * [`e3da5df`](https://github.com/npm/cli/commit/e3da5df4152fbe547f7871547165328e1bf06262) [#4667](https://github.com/npm/cli/pull/4667) fix: replace deprecated String.prototype.substr() ([@CommanderRoot](https://github.com/CommanderRoot))
+  * [`2a26e5e`](https://github.com/npm/cli/commit/2a26e5e21af788f025a5731d88f15f6dc88b4c0c) [#4645](https://github.com/npm/cli/pull/4645) fix: remove dedupe --save ([@wraithgar](https://github.com/wraithgar))
+  * [`47438ff`](https://github.com/npm/cli/commit/47438ff19f4b6e84a0325ed73b97999ce34bc789) [#4645](https://github.com/npm/cli/pull/4645) fix: do not export npm_config_include_workspace_root ([@wraithgar](https://github.com/wraithgar))
+  * [`840c338`](https://github.com/npm/cli/commit/840c338aa6aba7dc39d9d3afba075701e3979362) [#4678](https://github.com/npm/cli/pull/4678) fix(run-script): don't cascade if-present config ([@ruyadorno](https://github.com/ruyadorno))
+  * [`4d676e3`](https://github.com/npm/cli/commit/4d676e31a68f081b8553eff4e79db1f29acf47e1) [#4709](https://github.com/npm/cli/pull/4709) fix(arborist): when reloading an edge, also refresh overrides ([@nlf](https://github.com/nlf))
+  * [`3f7fe17`](https://github.com/npm/cli/commit/3f7fe17d1ea743b3ce1f27b9156e9fa0e358a7df) [#4659](https://github.com/npm/cli/pull/4659) fix: skip update notifier file if not requested ([@lukekarrys](https://github.com/lukekarrys))
+  * [`5ba7f0c`](https://github.com/npm/cli/commit/5ba7f0cef753d4af0bc02ca7d6dd0ac1bdd11ffe) [#4726](https://github.com/npm/cli/pull/4726) fix: show more information during publish dry-run ([@lukekarrys](https://github.com/lukekarrys))
+  * [`aa4a4da`](https://github.com/npm/cli/commit/aa4a4da336a6ec1963394fdbd06acb173c842d26) [#4735](https://github.com/npm/cli/pull/4735) fix(arborist): dont skip adding advisories to audit based on name/range ([@lukekarrys](https://github.com/lukekarrys))
+  * [`0cd852f`](https://github.com/npm/cli/commit/0cd852f62e1453e647a2551e98c78ce7e0c8ea03) [#4741](https://github.com/npm/cli/pull/4741) fix: mitigate doctor test race condition ([@wraithgar](https://github.com/wraithgar))
+  * [`ba8b2a7`](https://github.com/npm/cli/commit/ba8b2a753d63c8a8c7a44a48c2e13626b12025fe) [#4744](https://github.com/npm/cli/pull/4744) fix(ls): make `--omit` filter `npm ls` ([@lukekarrys](https://github.com/lukekarrys))
+
+### Documentation
+
+  * [`85b3c48`](https://github.com/npm/cli/commit/85b3c48d2c9bc4199aed699cc4c00ac96c5feebd) [#4666](https://github.com/npm/cli/pull/4666) docs(ci): add note that configuration must be consistent between install and ci ([@nlf](https://github.com/nlf))
+  * [`44108f7`](https://github.com/npm/cli/commit/44108f7be5e1e928d8aa3eda3c5c177bcd216c99) [#4670](https://github.com/npm/cli/pull/4670) docs: fix npm-uninstall typo ([@JSKitty](https://github.com/JSKitty))
+
+### Dependencies
+
+  * [`aaf86f6`](https://github.com/npm/cli/commit/aaf86f61836c45b254794785f0a2e8f43dc38800) [#4674](https://github.com/npm/cli/pull/4674) deps: `@npmcli/metavuln-calculator@3.1.0`
+  * [`4a9a705`](https://github.com/npm/cli/commit/4a9a705de6992a3e9eefecc6c0cf8da45a527c7a) [#4691](https://github.com/npm/cli/pull/4691) deps: `@npmcli/package-json@2.0.0`
+  * [`1a90b9e`](https://github.com/npm/cli/commit/1a90b9e9ebe98cce83591e11312aaf41c830f835) [#4691](https://github.com/npm/cli/pull/4691) deps: `treeverse@2.0.0`
+  * [`f86f1af`](https://github.com/npm/cli/commit/f86f1af636f39d7d30a97873bbb6652416f68013) [#4691](https://github.com/npm/cli/pull/4691) deps: `@npmcli/disparity-colors@2.0.0`
+  * [`3a76dff`](https://github.com/npm/cli/commit/3a76dff3f49af9688a44a508d956f2091363b66d) [#4691](https://github.com/npm/cli/pull/4691) deps: `make-fetch-happen@10.1.2`
+  * [`0230428`](https://github.com/npm/cli/commit/02304284ddd147e604835a000d3a28a2deb65702) [#4691](https://github.com/npm/cli/pull/4691) deps: `@npmcli/config@4.0.2`
+  * [`82dc75f`](https://github.com/npm/cli/commit/82dc75fe62466714ea59accf245a6f9d6d111e17) [#4691](https://github.com/npm/cli/pull/4691) deps: `npm-pick-manifest@7.0.1`
+  * [`ad99360`](https://github.com/npm/cli/commit/ad9936063f20829eb9d5358d056593883f17a57b) [#4691](https://github.com/npm/cli/pull/4691) deps: `npm-install-checks@5.0.0`
+  * [`79fc706`](https://github.com/npm/cli/commit/79fc706f9c389a17ba50dd8835223160b8b0c3fb) [#4691](https://github.com/npm/cli/pull/4691) deps: `bin-links@3.0.1`
+  * [`1f2fb1e`](https://github.com/npm/cli/commit/1f2fb1e07b752ee34867c271a0fd1f186397d8ec) [#4691](https://github.com/npm/cli/pull/4691) deps: `@npmcli/git@3.0.1`
+  * [`0f23c33`](https://github.com/npm/cli/commit/0f23c3378c991b2a482463ce7f700829a3752940) [#4691](https://github.com/npm/cli/pull/4691) deps: `@npmcli/run-script@3.0.2`
+  * [`485753d`](https://github.com/npm/cli/commit/485753df44e66921dcb593e1bcbb39de79c6dc11) [#4691](https://github.com/npm/cli/pull/4691) deps: `cacache@16.0.4`
+  * [`e9b25cd`](https://github.com/npm/cli/commit/e9b25cd66bef17e807a84e7b10384f5f4d0064b7) [#4691](https://github.com/npm/cli/pull/4691) deps: `@npmcli/move-file@2.0.0`
+  * [`0e87cac`](https://github.com/npm/cli/commit/0e87cac8b6f09692f6bd1bf086aadbe323d127b5) [#4691](https://github.com/npm/cli/pull/4691) deps: `@npmcli/node-gyp@2.0.0`
+  * [`b632746`](https://github.com/npm/cli/commit/b632746b99121b5a271c75b985a849dfd75b6c57) [#4691](https://github.com/npm/cli/pull/4691) deps: `@npmcli/promise-spawn@3.0.0`
+  * [`b1863bf`](https://github.com/npm/cli/commit/b1863bf87adeb6deec83869f0f7bb1df4a5731ef) [#4691](https://github.com/npm/cli/pull/4691) deps: `pacote@13.1.1`
+  * [`a2781a3`](https://github.com/npm/cli/commit/a2781a367d62328d7f870de878f1b63d66593f4f) [#4691](https://github.com/npm/cli/pull/4691) deps: `ssri@9.0.0`
+  * [`5172e03`](https://github.com/npm/cli/commit/5172e03a572c99159568861049e4c2a536922f50) [#4691](https://github.com/npm/cli/pull/4691) deps: `ini@3.0.0`
+  * [`71296d5`](https://github.com/npm/cli/commit/71296d5ca4ace5805e1061c1a58878939c1c32f3) [#4691](https://github.com/npm/cli/pull/4691) deps: `npm-package-arg@9.0.2`
+  * [`69d8343`](https://github.com/npm/cli/commit/69d834319a9d668bd451600ab6e124a8819b284d) [#4691](https://github.com/npm/cli/pull/4691) deps: `graceful-fs@4.2.10`
+  * [`c44c2b0`](https://github.com/npm/cli/commit/c44c2b02920854897ba7a663ef705b9b474c2250) [#4691](https://github.com/npm/cli/pull/4691) deps: `lru-cache@7.7.3`
+  * [`38029ed`](https://github.com/npm/cli/commit/38029edea846ffe81768d7073d4ec09a4b129c24) [#4691](https://github.com/npm/cli/pull/4691) deps: `dezalgo@1.0.4`
+  * [`e57353c`](https://github.com/npm/cli/commit/e57353c78e798afbd3eb4390a42da5d5076be45d) [#4691](https://github.com/npm/cli/pull/4691) deps: `semver@7.3.6`
+  * [`1b30c72`](https://github.com/npm/cli/commit/1b30c725ecd0f03f55e3c0576962972748eec238) [#4691](https://github.com/npm/cli/pull/4691) deps: `minimatch@5.0.1`
+  * [`c70232c`](https://github.com/npm/cli/commit/c70232cc12fd9b3b024c2c759edd708af2367b8d) [#4706](https://github.com/npm/cli/pull/4706) deps: `@npmcli/arborist@5.0.5`
+  * [`baff482`](https://github.com/npm/cli/commit/baff4828f733efee0a569e00f87d25f06f2b384b) [#4705](https://github.com/npm/cli/pull/4705) deps: `libnpmdiff@4.0.3`
+  * [`dda8a97`](https://github.com/npm/cli/commit/dda8a976a9dd696cf2b2e2be5b55b2048e768768) [#4704](https://github.com/npm/cli/pull/4704) deps: `libnpmorg@4.0.3`
+  * [`8914864`](https://github.com/npm/cli/commit/891486451f1c34a2e7649b0a76c6c0d611ce3d39) [#4703](https://github.com/npm/cli/pull/4703) deps: `libnpmaccess@6.0.3`
+  * [`3516f61`](https://github.com/npm/cli/commit/3516f61e415d9ce6e9b00378c45791e33bb99fc9) [#4702](https://github.com/npm/cli/pull/4702) deps: `libnpmfund@3.0.2`
+  * [`ecd22b0`](https://github.com/npm/cli/commit/ecd22b07af515d86b77248e6a4cc2dec57bafd50) [#4701](https://github.com/npm/cli/pull/4701) deps: `libnpmversion@3.0.2`
+  * [`7ed9faf`](https://github.com/npm/cli/commit/7ed9fafaa951071a7988a3ec4ca3a5e01756b11d) [#4700](https://github.com/npm/cli/pull/4700) deps: `libnpmhook@8.0.3`
+  * [`df92e23`](https://github.com/npm/cli/commit/df92e23af63ca07bb4c261abd7365530529d3fd2) [#4699](https://github.com/npm/cli/pull/4699) deps: `libnpmexec@4.0.3`
+  * [`5074adc`](https://github.com/npm/cli/commit/5074adc5e17d1b0ec753cde3b7efd96c2fc7c4a3) [#4698](https://github.com/npm/cli/pull/4698) deps: `libnpmsearch@5.0.3`
+  * [`35e5100`](https://github.com/npm/cli/commit/35e5100e287925d19df4aab98de96cf70a6ff5a6) [#4697](https://github.com/npm/cli/pull/4697) deps: `libnpmteam@4.0.3`
+  * [`86f5b27`](https://github.com/npm/cli/commit/86f5b273fc57118b8b1a5e53ec3ca49d94d81601) [#4696](https://github.com/npm/cli/pull/4696) deps: `libnpmpack@4.0.3`
+  * [`1617bce`](https://github.com/npm/cli/commit/1617bce61663a743435d162b003d3b99376d426f) [#4695](https://github.com/npm/cli/pull/4695) deps: `libnpmpublish@6.0.3`
+  * [`e33aa0f`](https://github.com/npm/cli/commit/e33aa0f94f87ae4f9d2a73781e84832ef61d1855) [#4714](https://github.com/npm/cli/pull/4714) deps: remove stringify-package
+  * [`98377d1`](https://github.com/npm/cli/commit/98377d159f72a5b6073f07235b057984eb09a85c) [#4740](https://github.com/npm/cli/pull/4740) deps: `@npmcli/config@4.1.0`
+  * [`605ccef`](https://github.com/npm/cli/commit/605ccef6916c170f6d0c53775614f8a02682262a) [#4728](https://github.com/npm/cli/pull/4728) deps: remove ansistyles
+  * [`c22fb1e`](https://github.com/npm/cli/commit/c22fb1e756d43b54fefd826f2c3f459d4f1204b5) [#4728](https://github.com/npm/cli/pull/4728) deps: remove ansicolors
+  * [`970244c`](https://github.com/npm/cli/commit/970244c415da91b98ca3b200d88c1206ba81d774) [#4734](https://github.com/npm/cli/pull/4734) deps: `libnpmversion@3.0.3`
+  * [`42dc0b0`](https://github.com/npm/cli/commit/42dc0b03d60dc27602dab26a2f8cbfc17bf4ab40) [#4733](https://github.com/npm/cli/pull/4733) deps: `@npmcli/arborist@5.0.6`
+
+## v8.6.0 (2022-03-31)
+
+### Features
+
+  * [`723a0918a`](https://github.com/npm/cli/commit/723a0918a5a9d9f795584f85d04506fafda9ca42) [#4588](https://github.com/npm/cli/pull/4588) feat(version): reify on workspace version change ([@ruyadorno](https://github.com/ruyadorno))
+  * [`cc6c09431`](https://github.com/npm/cli/commit/cc6c09431d7fe2db8ac1dc7a707f2dab7a7a1f83) [#4594](https://github.com/npm/cli/pull/4594) feat: add logs-dir config to set custom logging location ([@lukekarrys](https://github.com/lukekarrys))
+
+### Bug Fixes
+
+  * [`98bfd9a8c`](https://github.com/npm/cli/commit/98bfd9a8cc23930e6becd15fffabadd1c269b0a2) fix: remove always true condition (#4590) ([@XhmikosR](https://github.com/XhmikosR))
+  * [`81afa5a88`](https://github.com/npm/cli/commit/81afa5a8838c71a3a5037e2c8b4ae196e19fe0d7) [#4601](https://github.com/npm/cli/pull/4601) fix(unpublish): properly apply publishConfig ([@wraithgar](https://github.com/wraithgar))
+  * [`716a07fde`](https://github.com/npm/cli/commit/716a07fde7905bb69e4c6f1991bb7289589a6669) [#4607](https://github.com/npm/cli/pull/4607) fix: 100% coverage in tests ([@wraithgar](https://github.com/wraithgar))
+  * [`6f9cb490e`](https://github.com/npm/cli/commit/6f9cb490e7299976c43c6a118036c130671fe188) [#4614](https://github.com/npm/cli/pull/4614) fix(arborist): handle link nodes in old lockfiles correctly ([@nlf](https://github.com/nlf))
+  * [`18b8b9435`](https://github.com/npm/cli/commit/18b8b94357d8f57301fbaa0f1e5dc2cf1128bf3e) [#4617](https://github.com/npm/cli/pull/4617) fix(arborist): make sure resolveParent exists before checking props ([@nlf](https://github.com/nlf))
+  * [`bd96ae407`](https://github.com/npm/cli/commit/bd96ae4071f9cc8a65e741f414db12e98537971d) [#4599](https://github.com/npm/cli/pull/4599) fix(arborist): identify and repair invalid nodes in the virtual tree ([@nlf](https://github.com/nlf))
+  * [`99d884542`](https://github.com/npm/cli/commit/99d88454248f950b82652b592fe2b4d019c1060b) [#4599](https://github.com/npm/cli/pull/4599) fix: make sure we loadOverrides on the root node in loadVirtual() ([@nlf](https://github.com/nlf))
+  * [`45dd8b861`](https://github.com/npm/cli/commit/45dd8b8615bb1d7a93e1733746581049a1f399e6) [#4609](https://github.com/npm/cli/pull/4609) fix: move shellout logic into commands ([@wraithgar](https://github.com/wraithgar))
+  * [`a64acc0bf`](https://github.com/npm/cli/commit/a64acc0bf01e4bc68b26ead5b2d5c6db47ef16c2) [#4609](https://github.com/npm/cli/pull/4609) fix: really load all commands in tests, add description to birthday ([@wraithgar](https://github.com/wraithgar))
+  * [`d8dcc02cf`](https://github.com/npm/cli/commit/d8dcc02cfd354c1314c45d6530ec926cd138210c) [#4609](https://github.com/npm/cli/pull/4609) fix: consolidate command alias code ([@wraithgar](https://github.com/wraithgar))
+  * [`f76d4f2f6`](https://github.com/npm/cli/commit/f76d4f2f661bcc2534f541ee0e7d683155372baf) [#4609](https://github.com/npm/cli/pull/4609) fix: consolidate is-windows code ([@wraithgar](https://github.com/wraithgar))
+  * [`57d8f75eb`](https://github.com/npm/cli/commit/57d8f75eb864486f6aa17bb3dd2f213b5c148073) [#4609](https://github.com/npm/cli/pull/4609) fix: consolidate node version support logic ([@wraithgar](https://github.com/wraithgar))
+  * [`0a957f5e2`](https://github.com/npm/cli/commit/0a957f5e2fbcce51c407d22b19e38004d09c51af) [#4609](https://github.com/npm/cli/pull/4609) fix: consolidate path delimiter logic ([@wraithgar](https://github.com/wraithgar))
+  * [`738a40445`](https://github.com/npm/cli/commit/738a404454677b78b25ce82a8d2e4c1f46d57ffa) [#4609](https://github.com/npm/cli/pull/4609) fix: bump knownBroken to <12.5.0 ([@wraithgar](https://github.com/wraithgar))
+  * [`8b65bfd5d`](https://github.com/npm/cli/commit/8b65bfd5d610a70e1a860936be1a47f3a3df7f32) [#4629](https://github.com/npm/cli/pull/4629) fix: return otplease fn results ([@wraithgar](https://github.com/wraithgar))
+  * [`d8d374d23`](https://github.com/npm/cli/commit/d8d374d23d34c17e22b52afc1cfb5247cc7c3e1d) [#4632](https://github.com/npm/cli/pull/4632) fix: consolidate split-package-names ([@wraithgar](https://github.com/wraithgar))
+  * [`cc0a2ec99`](https://github.com/npm/cli/commit/cc0a2ec9999b956ea654deaf68fd49ae4bf1a1c0) [#4611](https://github.com/npm/cli/pull/4611) fix: work better with system manpages (#4610) ([@d0sboots](https://github.com/d0sboots))
+  * [`668ec7f33`](https://github.com/npm/cli/commit/668ec7f33b7a76f5e86a59f7e5a6c0e068a242b1) [#4644](https://github.com/npm/cli/pull/4644) fix: only call npmlog progress methods if explicitly requested ([@lukekarrys](https://github.com/lukekarrys))
+
+### Documentation
+
+  * [`ff1367f01`](https://github.com/npm/cli/commit/ff1367f01b9dd924d039b5a6b58399101cac99ca) [#4641](https://github.com/npm/cli/pull/4641) docs: recommend prepare over prepublish ([@verhovsky](https://github.com/verhovsky))
+  
+### Dependencies
+
+  * [`6df061ec2`](https://github.com/npm/cli/commit/6df061ec2a52882693ed86a3524ac6af0f88acd8) [#4594](https://github.com/npm/cli/pull/4594) deps: `npm-registry-fetch@13.1.0`
+  * [`6dd1139c9`](https://github.com/npm/cli/commit/6dd1139c9f302ac71f47a75e70bbe9cdf2e64960) [#4594](https://github.com/npm/cli/pull/4594) deps: `cacache@16.0.3`
+  * [`feb4446d5`](https://github.com/npm/cli/commit/feb4446d50a7b6a61e44a92b78e1e1af2d89a725) [#4616](https://github.com/npm/cli/pull/4616) deps: `make-fetch-happen@10.1.0`
+  * [`c33b53311`](https://github.com/npm/cli/commit/c33b5331120d8304e0f090ceda55e19cc6f451f4) [#4613](https://github.com/npm/cli/pull/4613) deps: `minipass-fetch@2.1.0`
+  * [`6a4c8ff89`](https://github.com/npm/cli/commit/6a4c8ff89acc98409060f5aa55b2f1a795a6b66c) [#4606](https://github.com/npm/cli/pull/4606) deps: `npm-audit-report@3.0.0`
+  * [`6e0a131d2`](https://github.com/npm/cli/commit/6e0a131d2ff3143856f388bb42c6568d5312c451) [#4627](https://github.com/npm/cli/pull/4627) deps: `debug@4.3.4`
+  * [`0f1cd60a1`](https://github.com/npm/cli/commit/0f1cd60a1cdb643782ae86a5a7fce84e357dbf10) [#4627](https://github.com/npm/cli/pull/4627) deps: `proc-log@2.0.1`
+  * [`da377eed5`](https://github.com/npm/cli/commit/da377eed5cba72185b90f5fc32ef288331c856ef) [#4627](https://github.com/npm/cli/pull/4627) deps: `parse-conflict-json@2.0.2`
+  * [`726a8a07a`](https://github.com/npm/cli/commit/726a8a07afeb3bd24979307679ce7e63c73b178e) [#4627](https://github.com/npm/cli/pull/4627) deps: `gauge@4.0.4`
+  * [`aac01b89c`](https://github.com/npm/cli/commit/aac01b89caf6336a2eb34d696296303cdadd5c08) [#4628](https://github.com/npm/cli/pull/4628) deps: `@npmcli/template-oss@3.2.1`
+  * [`52dfaf239`](https://github.com/npm/cli/commit/52dfaf239a3f66a05ee9d6148bc41a46b5adffd6) [#4630](https://github.com/npm/cli/pull/4630) deps: `make-fetch-happen@10.1.1`
+  * [`9778a5387`](https://github.com/npm/cli/commit/9778a5387771256fc81e3587922c12ec47f750ea) [#4635](https://github.com/npm/cli/pull/4635) deps: `init-package-json@3.0.2`
+  * [`86eff5dcc`](https://github.com/npm/cli/commit/86eff5dccb9bce2eb8d80706e8dea855faf753b3) [#4635](https://github.com/npm/cli/pull/4635) deps: `npm-package-arg@9.0.2`
+  * [`5b4cbb217`](https://github.com/npm/cli/commit/5b4cbb2175bfa35e347fe94e21d49a05ea64ead1) [#4635](https://github.com/npm/cli/pull/4635) deps: `validate-npm-package-name@4.0.0`
+  * [`a59fd2cb8`](https://github.com/npm/cli/commit/a59fd2cb863245fce56f96c90ac854e62c5c4d6f) [#4639](https://github.com/npm/cli/pull/4639) deps: `@npmcli/template-oss@3.2.2`
+  * [`679e569d5`](https://github.com/npm/cli/commit/679e569d5778aef312b37c1ba3bda0171366c9fb) [#4655](https://github.com/npm/cli/pull/4655) deps: `@npmcli/arborist@5.0.4`
+
 ## v8.5.5 (2022-03-17)
 
 ### Bug Fixes
