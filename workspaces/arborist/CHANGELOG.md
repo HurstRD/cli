@@ -1,5 +1,39 @@
 # Changelog
 
+## [5.3.0](https://github.com/npm/cli/compare/arborist-v5.2.3...arborist-v5.3.0) (2022-07-11)
+
+
+### Features
+
+* **arborist:** add support for dependencies script ([#5094](https://github.com/npm/cli/issues/5094)) ([e9b4214](https://github.com/npm/cli/commit/e9b4214e1ddb1ad79fe6826cf2ce7ba385f0c274))
+
+## [5.2.3](https://github.com/npm/cli/compare/arborist-v5.2.2...arborist-v5.2.3) (2022-06-23)
+
+
+### Dependencies
+
+* @npmcli/run-script@4.1.3 ([#5064](https://github.com/npm/cli/issues/5064)) ([f59a114](https://github.com/npm/cli/commit/f59a114ffe3d1f86ccb2e52a4432292ab76852cc))
+
+## [5.2.2](https://github.com/npm/cli/compare/arborist-v5.2.1...arborist-v5.2.2) (2022-06-22)
+
+
+### Bug Fixes
+
+* Add space to SemVer log message ([#5042](https://github.com/npm/cli/issues/5042)) ([e03009f](https://github.com/npm/cli/commit/e03009f4b423e85e498f1b1851fae785de91a73d))
+
+
+### Dependencies
+
+* @npmcli/run-script@4.1.0 ([2c06cee](https://github.com/npm/cli/commit/2c06ceee82dd813c0ae84cc0b09e6941cfc5533e))
+* pacote@13.6.1 ([2e50cb8](https://github.com/npm/cli/commit/2e50cb83e84cf25fee93ba0ca5a0343fbdb33c41))
+
+### [5.2.1](https://github.com/npm/cli/compare/arborist-v5.2.0...arborist-v5.2.1) (2022-06-01)
+
+
+### Bug Fixes
+
+* **arborist:** use rawSpec for bundled and shrinkwrapped deps ([#4963](https://github.com/npm/cli/issues/4963)) ([646b6b5](https://github.com/npm/cli/commit/646b6b5d05de937beb8202e5fd8b8daf3e58e902))
+
 ## [5.2.0](https://github.com/npm/cli/compare/arborist-v5.1.1...arborist-v5.2.0) (2022-05-10)
 
 

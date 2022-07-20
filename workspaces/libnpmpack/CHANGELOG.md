@@ -1,5 +1,32 @@
 # Changelog
 
+## [4.1.2](https://github.com/npm/cli/compare/libnpmpack-v4.1.1...libnpmpack-v4.1.2) (2022-06-23)
+
+
+### Dependencies
+
+* @npmcli/run-script@4.1.3 ([#5064](https://github.com/npm/cli/issues/5064)) ([f59a114](https://github.com/npm/cli/commit/f59a114ffe3d1f86ccb2e52a4432292ab76852cc))
+
+## [4.1.1](https://github.com/npm/cli/compare/libnpmpack-v4.1.0...libnpmpack-v4.1.1) (2022-06-22)
+
+
+### Dependencies
+
+* @npmcli/run-script@4.1.0 ([2c06cee](https://github.com/npm/cli/commit/2c06ceee82dd813c0ae84cc0b09e6941cfc5533e))
+* pacote@13.6.1 ([2e50cb8](https://github.com/npm/cli/commit/2e50cb83e84cf25fee93ba0ca5a0343fbdb33c41))
+
+## [4.1.0](https://github.com/npm/cli/compare/libnpmpack-v4.0.3...libnpmpack-v4.1.0) (2022-05-25)
+
+
+### Features
+
+* **libnpmpack:** bump pacote for better workspace awareness ([7307c8d](https://github.com/npm/cli/commit/7307c8de388cd14c96c42d70b7e567ec343ad084))
+
+
+### Dependencies
+
+* pacote@13.5.0 npm-packlist@5.1.0 ([353e2f9](https://github.com/npm/cli/commit/353e2f9dc60a5d319d4105822a9e0b2ddbf82bc0))
+
 ### [4.0.3](https://github.com/npm/cli/compare/libnpmpack-v4.0.2...libnpmpack-v4.0.3) (2022-04-06)
 
 

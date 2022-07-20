@@ -253,11 +253,12 @@ exports[`test/lib/utils/config/definitions.js TAP > config description for auth-
 #### \`auth-type\`
 
 * Default: "legacy"
-* Type: "legacy", "sso", "saml", or "oauth"
-* DEPRECATED: This method of SSO/SAML/OAuth is deprecated and will be removed
-  in a future version of npm in favor of web-based login.
+* Type: "legacy", "web", "sso", "saml", "oauth", or "webauthn"
 
-What authentication strategy to use with \`adduser\`/\`login\`.
+NOTE: auth-type values "sso", "saml", "oauth", and "webauthn" will be
+removed in a future version.
+
+What authentication strategy to use with \`login\`.
 `
 
 exports[`test/lib/utils/config/definitions.js TAP > config description for before 1`] = `
@@ -731,8 +732,6 @@ exports[`test/lib/utils/config/definitions.js TAP > config description for globa
 
 * Default: false
 * Type: Boolean
-* DEPRECATED: \`--global\`, \`--local\` are deprecated. Use \`--location=global\`
-  instead.
 
 Operates in "global" mode, so that packages are installed into the \`prefix\`
 folder instead of the current working directory. See
@@ -1591,7 +1590,7 @@ exports[`test/lib/utils/config/definitions.js TAP > config description for scrip
 * Type: null or String
 
 The shell to use for scripts run with the \`npm exec\`, \`npm run\` and \`npm
-init <pkg>\` commands.
+init <package-spec>\` commands.
 `
 
 exports[`test/lib/utils/config/definitions.js TAP > config description for searchexclude 1`] = `
